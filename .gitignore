@@ -75,3 +75,23 @@ venv/
 # Environment variables
 .env
 *.env
+# Exclude project documentation and presentation folders
+
+/Formats/
+/PPT/
+/Video/
+/document/
+
+# Exclude dataset files
+
+/Code/dataset/
+/Code/dataset.zip
+
+# Exclude generated Python files and environments
+
+**pycache**/
+*.py[cod]
+.venv/
+venv/
+*.env
+.env
