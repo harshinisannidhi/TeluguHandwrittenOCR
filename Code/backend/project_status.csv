@@ -1,0 +1,4 @@
+item,status,evidence
+Character-level classification,Strong results,macro-F1 0.953 | balanced acc 0.957 | upload-test acc 0.906
+Proposed model performance,Promising,"SGF macro-F1 0.953 vs baseline 0.907 (+4.6 pts), latency 18.2 ms"
+Full Telugu OCR validation,Incomplete,only 1 dictionary words could be assembled from character classes; no word/line-image test set yet

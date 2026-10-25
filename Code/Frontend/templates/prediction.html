@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Recognize · Telugu OCR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070b1c;
+      --card: rgba(12, 18, 42, .78);
+      --card2: rgba(20, 28, 62, .7);
+      --line: rgba(255, 255, 255, .13);
+      --text: #eef1ff;
+      --muted: #aab3d8;
+      --gold: #f5a524;
+      --gold2: #ffd27a;
+      --teal: #2dd4bf;
+      --rose: #fb7185;
+      --green: #34d399;
+      --radius: 18px;
+      --tel: 'Noto Sans Telugu', 'Nirmala UI', 'Gautami', 'Mandali', sans-serif
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth
+    }
+
+    body {
+      font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      background-color: var(--bg);
+      display: flex;
+      flex-direction: column;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased
+    }
+
+    a {
+      color: var(--gold2);
+      text-decoration: none
+    }
+
+    a:hover {
+      color: #fff
+    }
+
+    .tel {
+      font-family: var(--tel)
+    }
+
+    /* ---------- navbar ---------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 28px;
+      background: rgba(7, 11, 28, .72);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--line)
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: #fff;
+      letter-spacing: .2px
+    }
+
+    .brand b {
+      color: var(--gold)
+    }
+
+    .brand-glyph {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      font-family: var(--tel);
+      font-size: 1.4rem;
+      color: #1b1200;
+      background: linear-gradient(135deg, var(--gold2), var(--gold));
+      box-shadow: 0 6px 18px rgba(245, 165, 36, .35)
+    }
+
+    .links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap
+    }
+
+    .links a {
+      padding: 8px 14px;
+      border-radius: 10px;
+      color: var(--muted);
+      font-weight: 500;
+      font-size: .93rem;
+      transition: .2s
+    }
+
+    .links a:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, .08)
+    }
+
+    .links a.active {
+      color: #1b1200;
+      background: linear-gradient(135deg, var(--gold2), var(--gold))
+    }
+
+    .links a.cta {
+      border: 1px solid var(--gold);
+      color: var(--gold2)
+    }
+
+    .burger {
+      display: none;
+      background: none;
+      border: 1px solid var(--line);
+      color: #fff;
+      font-size: 1.3rem;
+      border-radius: 10px;
+      padding: 4px 12px;
+      cursor: pointer
+    }
+
+    @media(max-width:820px) {
+      .burger {
+        display: block
+      }
+
+      .links {
+        display: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px 20px 18px;
+        background: rgba(7, 11, 28, .96);
+        border-bottom: 1px solid var(--line)
+      }
+
+      .nav.open .links {
+        display: flex
+      }
+    }
+
+    /* ---------- layout ---------- */
+    .wrap {
+      width: 100%;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 34px 22px 64px;
+      flex: 1
+    }
+
+    .page-title {
+      font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 6px
+    }
+
+    .page-title span {
+      background: linear-gradient(90deg, var(--gold2), var(--gold), var(--teal));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .sub {
+      color: var(--muted);
+      max-width: 760px;
+      margin-bottom: 26px
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px
+    }
+
+    .g2 {
+      grid-template-columns: repeat(2, 1fr)
+    }
+
+    .g3 {
+      grid-template-columns: repeat(3, 1fr)
+    }
+
+    .g4 {
+      grid-template-columns: repeat(4, 1fr)
+    }
+
+    .g6 {
+      grid-template-columns: repeat(6, 1fr)
+    }
+
+    @media(max-width:1000px) {
+      .g4 {
+        grid-template-columns: repeat(2, 1fr)
+      }
+
+      .g6 {
+        grid-template-columns: repeat(3, 1fr)
+      }
+    }
+
+    @media(max-width:700px) {
+
+      .g2,
+      .g3,
+      .g4,
+      .g6 {
+        grid-template-columns: 1fr
+      }
+
+      .g6 {
+        grid-template-columns: repeat(2, 1fr)
+      }
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 24px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, .35)
+    }
+
+    .card h2 {
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .card h2 i {
+      font-style: normal;
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      border-radius: 9px;
+      background: rgba(245, 165, 36, .16);
+      font-size: 1rem
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: .95rem
+    }
+
+    .section {
+      margin-top: 30px
+    }
+
+    .section>h2 {
+      font-size: 1.3rem;
+      margin-bottom: 14px
+    }
+
+    /* ---------- buttons / badges ---------- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: .97rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: .2s;
+      font-family: inherit
+    }
+
+    .btn-gold {
+      color: #1b1200;
+      background: linear-gradient(135deg, var(--gold2), var(--gold));
+      box-shadow: 0 10px 26px rgba(245, 165, 36, .35)
+    }
+
+    .btn-gold:hover {
+      transform: translateY(-2px);
+      color: #1b1200;
+      box-shadow: 0 14px 32px rgba(245, 165, 36, .5)
+    }
+
+    .btn-ghost {
+      color: #fff;
+      border-color: var(--line);
+      background: rgba(255, 255, 255, .05)
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, .12);
+      color: #fff
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: 999px;
+      font-size: .74rem;
+      font-weight: 600;
+      letter-spacing: .3px;
+      background: rgba(255, 255, 255, .1);
+      color: var(--muted);
+      border: 1px solid var(--line)
+    }
+
+    .badge.ok {
+      background: rgba(52, 211, 153, .16);
+      color: var(--green);
+      border-color: rgba(52, 211, 153, .4)
+    }
+
+    .badge.warn {
+      background: rgba(245, 165, 36, .16);
+      color: var(--gold2);
+      border-color: rgba(245, 165, 36, .45)
+    }
+
+    .badge.bad {
+      background: rgba(251, 113, 133, .16);
+      color: var(--rose);
+      border-color: rgba(251, 113, 133, .45)
+    }
+
+    .badge.gold {
+      background: linear-gradient(135deg, var(--gold2), var(--gold));
+      color: #1b1200;
+      border: none
+    }
+
+    /* ---------- forms ---------- */
+    .field {
+      margin-bottom: 16px
+    }
+
+    .field label {
+      display: block;
+      font-size: .84rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+      font-weight: 500
+    }
+
+    .field input[type=email],
+    .field input[type=password],
+    .field input[type=text] {
+      width: 100%;
+      padding: 13px 15px;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .07);
+      color: #fff;
+      font-size: 1rem;
+      font-family: inherit;
+      outline: none;
+      transition: .2s
+    }
+
+    .field input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(245, 165, 36, .22);
+      background: rgba(255, 255, 255, .1)
+    }
+
+    .alert {
+      padding: 13px 16px;
+      border-radius: 12px;
+      margin-bottom: 18px;
+      font-size: .93rem;
+      border: 1px solid
+    }
+
+    .alert.err {
+      background: rgba(251, 113, 133, .13);
+      border-color: rgba(251, 113, 133, .5);
+      color: #ffd0d7
+    }
+
+    .alert.info {
+      background: rgba(245, 165, 36, .12);
+      border-color: rgba(245, 165, 36, .45);
+      color: var(--gold2)
+    }
+
+    /* ---------- tables / bars ---------- */
+    .tbl-wrap {
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--line)
+    }
+
+    table.tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .9rem;
+      min-width: 640px
+    }
+
+    .tbl th {
+      text-align: left;
+      padding: 11px 14px;
+      background: rgba(245, 165, 36, .14);
+      color: var(--gold2);
+      font-weight: 600;
+      white-space: nowrap;
+      position: sticky;
+      top: 0
+    }
+
+    .tbl td {
+      padding: 10px 14px;
+      border-top: 1px solid var(--line);
+      white-space: nowrap
+    }
+
+    .tbl tr:hover td {
+      background: rgba(255, 255, 255, .05)
+    }
+
+    .tbl tr.me td {
+      background: rgba(245, 165, 36, .1)
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, .1);
+      overflow: hidden
+    }
+
+    .bar>span {
+      display: block;
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--gold), var(--gold2))
+    }
+
+    .bar.teal>span {
+      background: linear-gradient(90deg, #14b8a6, var(--teal))
+    }
+
+    .bar.rose>span {
+      background: linear-gradient(90deg, #f43f5e, var(--rose))
+    }
+
+    /* ---------- flow ---------- */
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: stretch
+    }
+
+    .flow .st {
+      flex: 1 1 150px;
+      background: var(--card2);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px;
+      position: relative
+    }
+
+    .flow .st b {
+      display: block;
+      font-size: .92rem;
+      margin-bottom: 2px
+    }
+
+    .flow .st small {
+      color: var(--muted);
+      font-size: .8rem;
+      line-height: 1.35;
+      display: block
+    }
+
+    .flow .st .n {
+      display: inline-grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #1b1200;
+      font-weight: 700;
+      font-size: .78rem;
+      margin-bottom: 8px
+    }
+
+    /* ---------- footer ---------- */
+    .foot {
+      text-align: center;
+      padding: 22px;
+      color: var(--muted);
+      font-size: .85rem;
+      border-top: 1px solid var(--line);
+      background: rgba(7, 11, 28, .7);
+      backdrop-filter: blur(8px)
+    }
+
+    body {
+      background-image: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271000%27%20height%3D%271000%27%20viewBox%3D%270%200%201000%201000%27%20font-family%3D%22Nirmala%20UI%2CGautami%2CNoto%20Sans%20Telugu%2CMandali%2CPothana2000%2Csans-serif%22%3E%3Ctext%20x%3D%27500%27%20y%3D%27800%27%20font-size%3D%27900%27%20text-anchor%3D%27middle%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.16%27%3E%26%23x0C24%3B%3C%2Ftext%3E%3Ccircle%20cx%3D%27500%27%20cy%3D%27500%27%20r%3D%27470%27%20fill%3D%27none%27%20stroke%3D%27%23f5a524%27%20stroke-opacity%3D%270.18%27%20stroke-width%3D%273%27%20stroke-dasharray%3D%276%2014%27%2F%3E%3C%2Fsvg%3E"), url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27520%27%20height%3D%27520%27%20viewBox%3D%270%200%20520%20520%27%20font-family%3D%22Nirmala%20UI%2CGautami%2CNoto%20Sans%20Telugu%2CMandali%2CPothana2000%2Csans-serif%22%3E%3Ctext%20x%3D%27273%27%20y%3D%27153%27%20font-size%3D%27100%27%20fill%3D%27%23ffffff%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%28-5%20273%20153%29%27%3E%26%23x0C15%3B%26%23x0C3E%3B%3C%2Ftext%3E%3Ctext%20x%3D%27184%27%20y%3D%27471%27%20font-size%3D%2744%27%20fill%3D%27%23ffffff%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%2813%20184%20471%29%27%3E%26%23x0C15%3B%26%23x0C3F%3B%3C%2Ftext%3E%3Ctext%20x%3D%2753%27%20y%3D%27267%27%20font-size%3D%2784%27%20fill%3D%27%232dd4bf%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%283%2053%20267%29%27%3E%26%23x0C15%3B%26%23x0C40%3B%3C%2Ftext%3E%3Ctext%20x%3D%27343%27%20y%3D%2763%27%20font-size%3D%27100%27%20fill%3D%27%232dd4bf%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%28-13%20343%2063%29%27%3E%26%23x0C15%3B%26%23x0C41%3B%3C%2Ftext%3E%3Ctext%20x%3D%2733%27%20y%3D%27281%27%20font-size%3D%2756%27%20fill%3D%27%23fb7185%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%28-10%2033%20281%29%27%3E%26%23x0C15%3B%26%23x0C42%3B%3C%2Ftext%3E%3Ctext%20x%3D%27169%27%20y%3D%27437%27%20font-size%3D%2768%27%20fill%3D%27%23ffffff%27%20fill-opacity%3D%270.21%27%20transform%3D%27rotate%2810%20169%20437%29%27%3E%26%23x0C15%3B%26%23x0C46%3B%3C%2Ftext%3E%3Ctext%20x%3D%27210%27%20y%3D%27449%27%20font-size%3D%2756%27%20fill%3D%27%23fb7185%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%28-2%20210%20449%29%27%3E%26%23x0C15%3B%26%23x0C47%3B%3C%2Ftext%3E%3Ctext%20x%3D%27139%27%20y%3D%27126%27%20font-size%3D%2756%27%20fill%3D%27%23ffd27a%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%28-15%20139%20126%29%27%3E%26%23x0C15%3B%26%23x0C48%3B%3C%2Ftext%3E%3Ctext%20x%3D%27267%27%20y%3D%2767%27%20font-size%3D%27100%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%286%20267%2067%29%27%3E%26%23x0C15%3B%26%23x0C4A%3B%3C%2Ftext%3E%3Ctext%20x%3D%2723%27%20y%3D%27276%27%20font-size%3D%2756%27%20fill%3D%27%23fb7185%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%28-12%2023%20276%29%27%3E%26%23x0C15%3B%26%23x0C4B%3B%3C%2Ftext%3E%3Ctext%20x%3D%27385%27%20y%3D%2792%27%20font-size%3D%2784%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.21%27%20transform%3D%27rotate%28-5%20385%2092%29%27%3E%26%23x0C15%3B%26%23x0C4C%3B%3C%2Ftext%3E%3Ctext%20x%3D%27201%27%20y%3D%27375%27%20font-size%3D%2768%27%20fill%3D%27%23fb7185%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%28-16%20201%20375%29%27%3E%26%23x0C17%3B%26%23x0C3E%3B%3C%2Ftext%3E%3Ctext%20x%3D%27236%27%20y%3D%27263%27%20font-size%3D%2756%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%28-10%20236%20263%29%27%3E%26%23x0C24%3B%26%23x0C3F%3B%3C%2Ftext%3E%3Ccircle%20cx%3D%27263%27%20cy%3D%2762%27%20r%3D%274%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%27167%27%20cy%3D%27342%27%20r%3D%273%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%27331%27%20cy%3D%27508%27%20r%3D%273%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%2725%27%20cy%3D%27499%27%20r%3D%273%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%27387%27%20cy%3D%27114%27%20r%3D%274%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%27201%27%20cy%3D%27432%27%20r%3D%272%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%27437%27%20cy%3D%27400%27%20r%3D%274%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%27248%27%20cy%3D%27493%27%20r%3D%273%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3C%2Fsvg%3E"), radial-gradient(900px 520px at 8% 0%, rgba(245, 165, 36, .20), transparent 60%), radial-gradient(800px 520px at 100% 100%, rgba(45, 212, 191, .16), transparent 60%), linear-gradient(160deg, #070b1c 0%, #0d1433 55%, #120f2b 100%);
+      background-repeat: no-repeat, repeat, no-repeat, no-repeat, no-repeat;
+      background-position: right -140px bottom -200px, 0 0, 0 0, 0 0, 0 0;
+      background-size: min(760px, 95vw) auto, 520px 520px, auto, auto, cover;
+      background-attachment: fixed;
+    }
+
+    .drop {
+      display: block;
+      margin-top: 18px;
+      border: 2px dashed rgba(245, 165, 36, .6);
+      border-radius: 16px;
+      padding: 34px 18px;
+      text-align: center;
+      cursor: pointer;
+      background: rgba(245, 165, 36, .06);
+      transition: .2s
+    }
+
+    .drop:hover,
+    .drop.over {
+      background: rgba(245, 165, 36, .16);
+      border-color: var(--gold2)
+    }
+
+    .drop .ic {
+      font-size: 2.4rem
+    }
+
+    .drop b {
+      display: block;
+      font-size: 1.05rem;
+      margin-top: 4px
+    }
+
+    .drop small {
+      color: var(--muted)
+    }
+
+    .drop input {
+      display: none
+    }
+
+    .previews {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px
+    }
+
+    .pv {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #fff
+    }
+
+    .pv img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain
+    }
+
+    .pv em {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      font-style: normal;
+      font-size: .68rem;
+      font-weight: 700;
+      background: var(--gold);
+      color: #1b1200;
+      border-radius: 6px;
+      padding: 0 6px
+    }
+
+    .opts {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 18px
+    }
+
+    .chk {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: .9rem;
+      cursor: pointer
+    }
+
+    .chk input {
+      accent-color: var(--gold);
+      width: 16px;
+      height: 16px
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: .84rem;
+      margin-top: 10px
+    }
+
+    /* results */
+    .result-top {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 18px;
+      margin-top: 30px
+    }
+
+    @media(max-width:860px) {
+      .result-top {
+        grid-template-columns: 1fr
+      }
+    }
+
+    .final {
+      text-align: center
+    }
+
+    .final .lbl {
+      color: var(--muted);
+      font-size: .8rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase
+    }
+
+    .final .text {
+      font-family: var(--tel);
+      font-size: clamp(3rem, 9vw, 5.6rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin: 10px 0;
+      color: var(--gold2);
+      word-break: break-all;
+      text-shadow: 0 8px 40px rgba(245, 165, 36, .35)
+    }
+
+    .final .raw {
+      color: var(--muted);
+      font-size: .9rem
+    }
+
+    .final .raw b {
+      font-family: var(--tel);
+      color: #fff;
+      font-size: 1.1rem
+    }
+
+    .ring {
+      --p: 0;
+      width: 128px;
+      height: 128px;
+      border-radius: 50%;
+      margin: 0 auto 12px;
+      display: grid;
+      place-items: center;
+      background: conic-gradient(var(--gold) calc(var(--p)*1%), rgba(255, 255, 255, .12) 0)
+    }
+
+    .ring div {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: #0d1433;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 1.35rem
+    }
+
+    .ring.warn {
+      background: conic-gradient(var(--rose) calc(var(--p)*1%), rgba(255, 255, 255, .12) 0)
+    }
+
+    .mini {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 14px
+    }
+
+    .mini div {
+      background: rgba(255, 255, 255, .06);
+      border-radius: 12px;
+      padding: 10px;
+      text-align: center
+    }
+
+    .mini b {
+      display: block;
+      color: var(--gold2);
+      font-size: 1.05rem
+    }
+
+    .mini span {
+      color: var(--muted);
+      font-size: .76rem
+    }
+
+    .chars {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 16px;
+      margin-top: 16px
+    }
+
+    .char {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px;
+      backdrop-filter: blur(10px)
+    }
+
+    .char.uncertain {
+      border-color: rgba(245, 165, 36, .7)
+    }
+
+    .char-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px
+    }
+
+    .idx {
+      font-weight: 700;
+      color: var(--gold2)
+    }
+
+    .char-body {
+      display: flex;
+      gap: 12px;
+      align-items: center
+    }
+
+    .char-body img.in {
+      width: 78px;
+      height: 78px;
+      border-radius: 10px;
+      background: #fff;
+      object-fit: contain;
+      border: 1px solid var(--line)
+    }
+
+    .char-glyph {
+      font-family: var(--tel);
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1;
+      flex: 1;
+      text-align: center;
+      color: #fff
+    }
+
+    .stroke {
+      display: block;
+      width: 100%;
+      border-radius: 8px;
+      margin: 12px 0 4px;
+      border: 1px solid var(--line)
+    }
+
+    .cap {
+      color: var(--muted);
+      font-size: .72rem;
+      text-align: center;
+      margin-bottom: 8px
+    }
+
+    .conf {
+      display: flex;
+      justify-content: space-between;
+      font-size: .82rem;
+      color: var(--muted);
+      margin: 10px 0 4px
+    }
+
+    .conf b {
+      color: #fff
+    }
+
+    .alts {
+      list-style: none;
+      margin-top: 10px;
+      font-size: .84rem
+    }
+
+    .alts li {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      padding: 4px 0;
+      border-top: 1px solid var(--line);
+      color: var(--muted)
+    }
+
+    .alts li .tel {
+      color: #fff;
+      font-size: 1rem
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: .78rem;
+      margin-top: 6px
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      place-items: center;
+      background: rgba(5, 8, 22, .82);
+      backdrop-filter: blur(6px);
+      text-align: center
+    }
+
+    .overlay.show {
+      display: grid
+    }
+
+    .spin {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 5px solid rgba(255, 255, 255, .15);
+      border-top-color: var(--gold);
+      animation: sp 1s linear infinite;
+      margin: 0 auto 14px
+    }
+
+    @keyframes sp {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    .note {
+      margin-top: 16px
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav" id="topnav">
+    <a class="brand" href="{{ url_for('index') }}"><span class="brand-glyph">అ</span><span>Telugu<b>OCR</b></span></a>
+    <button class="burger" aria-label="Menu"
+      onclick="document.getElementById('topnav').classList.toggle('open')">&#9776;</button>
+    <nav class="links">
+      <a href="{{ url_for('home') }}" class="active">Dashboard</a>
+      <a href="{{ url_for('model_performance') }}">Model Performance</a>
+      <a href="{{ url_for('prediction') }}">Recognize</a>
+      <a href="{{ url_for('index') }}" class="cta">Logout</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h1 class="page-title">Recognize <span>handwritten Telugu</span></h1>
+    <p class="sub">Upload one handwritten Telugu character image and the model will read it.</p>
+
+    {% if error %}<div class="alert err"><b>Could not process:</b> {{ error }}</div>{% endif %}
+
+    <form class="card" id="ocrForm" method="POST" action="{{ url_for('prediction') }}" enctype="multipart/form-data">
+      <h2><i>&#128247;</i>Input</h2>
+      <input type="hidden" name="prediction_mode" value="character">
+
+      <label class="drop" id="drop" for="files">
+        <div class="ic">&#128228;</div>
+        <b>Click to choose a character image, or drag &amp; drop here</b>
+        <small>.jpg .jpeg .png .bmp .webp .tif &middot; one character per image</small>
+        <input type="file" id="files" name="image_files" accept=".jpg,.jpeg,.png,.bmp,.webp,.tif,.tiff">
+      </label>
+      <div class="previews" id="previews"></div>
+      <p class="hint" id="hint"></p>
+
+      <div class="opts">
+        <button type="submit" class="btn btn-gold" id="go">Recognise &rarr;</button>
+      </div>
+    </form>
+
+    {% if latest %}
+    <section id="results">
+      <div class="result-top">
+        <div class="card final">
+          <div class="lbl">Recognised character</div>
+          <div class="text">{{ latest.text_final }}</div>
+          {% if latest.text_raw != latest.text_final %}
+          <div class="raw">Raw prediction: <b>{{ latest.text_raw }}</b></div>
+          {% endif %}
+          {% if latest.note %}<div class="alert info note">{{ latest.note }}</div>{% endif %}
+          <div style="margin-top:16px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+            {% if report_id %}<a class="btn btn-gold"
+              href="{{ url_for('download_report', report_id=report_id) }}">&#11015; Download PDF report</a>{% endif %}
+            <a class="btn btn-ghost" href="{{ url_for('prediction') }}">New recognition</a>
+          </div>
+        </div>
+        <div class="card" style="text-align:center">
+          <div class="ring {{ 'warn' if latest.status == 'uncertain' else '' }}"
+            style="--p:{{ latest.mean_confidence }}">
+            <div>{{ '%.1f'|format(latest.mean_confidence) }}%</div>
+          </div>
+          <span class="badge {{ 'ok' if latest.status == 'detected' else 'warn' }}">{{ latest.status|capitalize
+            }}</span>
+          <div class="mini">
+            <div><b>{{ latest.characters[0].group }}</b><span>character group</span></div>
+            <div><b>{{ latest.characters[0].class_key.split(':')[-1] }}</b><span>predicted class</span></div>
+            <div><b>{{ latest.inference_ms }} ms</b><span>inference time</span></div>
+            <div><b>{{ latest.model.short }}</b><span>{{ latest.model.img_size }}&times;{{ latest.model.img_size }}
+                input</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>Prediction details</h2>
+        <div class="chars" style="max-width:340px">
+          {% for c in latest.characters %}
+          <article class="char {{ c.status }}">
+            <div class="char-top"><span class="idx">Character</span><span
+                class="badge {{ 'ok' if c.status == 'detected' else 'warn' }}">{{ c.status }}</span></div>
+            <div class="char-body">
+              <img class="in" src="{{ url_for('static', filename=c.images.input) }}" alt="character {{ c.position }}">
+              <div class="char-glyph">{{ c.unicode }}</div>
+            </div>
+            <img class="stroke" src="{{ url_for('static', filename=c.images.stroke) }}" alt="stroke maps">
+            <div class="cap">gray &middot; skeleton &middot; stroke width &middot; edges</div>
+            <div class="conf"><span>Confidence</span><b>{{ '%.1f'|format(c.confidence_score) }}%</b></div>
+            <div class="bar {{ '' if c.status == 'detected' else 'rose' }}"><span
+                style="width:{{ c.confidence_score }}%"></span></div>
+            {% if c.appearance_share is not none %}
+            <div class="conf"><span>Appearance vs stroke</span><b>{{ c.appearance_share }}% / {{ '%.1f'|format(100 -
+                c.appearance_share) }}%</b></div>
+            <div class="bar teal"><span style="width:{{ c.appearance_share }}%"></span></div>
+            {% endif %}
+            <ul class="alts">
+              {% for a in c.top_k %}<li><span><span class="tel">{{ a.unicode }}</span> {{ a.class_key.split(':')[-1]
+                  }}</span><b>{{ '%.1f'|format(a.probability) }}%</b></li>{% endfor %}
+            </ul>
+            <div class="meta">{{ c.group }} &middot; {{ c.codepoints }} &middot; {{ c.filename }}</div>
+          </article>
+          {% endfor %}
+        </div>
+      </div>
+
+      {% if group_descriptions %}
+      <details class="card section">
+        <summary style="cursor:pointer;font-weight:600">Character groups explained</summary>
+        <div style="margin-top:12px">{% for g, d in group_descriptions.items() %}<p style="margin-bottom:8px"><span
+              class="badge">{{ g }}</span> {{ d }}</p>{% endfor %}</div>
+      </details>
+      {% endif %}
+      <p class="hint" style="margin-top:16px">{{ latest.warning }}</p>
+    </section>
+    {% endif %}
+  </main>
+  <div class="overlay" id="busy">
+    <div>
+      <div class="spin"></div><b>Recognising handwriting&hellip;</b>
+      <p class="hint">Preprocessing, stroke analysis and prediction</p>
+    </div>
+  </div>
+
+  <footer class="foot">Telugu Handwritten Character OCR &middot; SGF-MobileNetV3 &middot; Stroke-Gated Feature Fusion
+    &middot; &copy; 2026</footer>
+  <script>
+    var input = document.getElementById('files'), box = document.getElementById('previews'),
+      drop = document.getElementById('drop'), hint = document.getElementById('hint'), form = document.getElementById('ocrForm');
+    function keepFirst(files) {
+      var dt = new DataTransfer(); dt.items.add(files[0]); input.files = dt.files;
+    }
+    function render() {
+      box.innerHTML = '';
+      if (!input.files.length) { hint.textContent = ''; return; }
+      var d = document.createElement('div'); d.className = 'pv';
+      var im = document.createElement('img'); im.src = URL.createObjectURL(input.files[0]);
+      d.appendChild(im); box.appendChild(d);
+      hint.textContent = 'Selected: ' + input.files[0].name;
+    }
+    input.addEventListener('change', function () { if (input.files.length > 1) keepFirst(input.files); render(); });
+    ['dragenter', 'dragover'].forEach(function (e) { drop.addEventListener(e, function (ev) { ev.preventDefault(); drop.classList.add('over'); }); });
+    ['dragleave', 'drop'].forEach(function (e) { drop.addEventListener(e, function (ev) { ev.preventDefault(); drop.classList.remove('over'); }); });
+    drop.addEventListener('drop', function (ev) { if (ev.dataTransfer.files.length) { keepFirst(ev.dataTransfer.files); render(); } });
+    form.addEventListener('submit', function (ev) {
+      if (!input.files.length) { ev.preventDefault(); hint.textContent = 'Please choose a character image.'; return; }
+      document.getElementById('busy').classList.add('show');
+    });
+    var res = document.getElementById('results');
+    if (res) res.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  </script>
+</body>
+
+</html>

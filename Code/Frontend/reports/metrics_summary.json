@@ -1,0 +1,61 @@
+{
+ "selected_model": "Model2_SGF_MobileNetV3_Proposed",
+ "test_metrics": {
+  "Model1_MobileNetV3Small_Baseline": {
+   "accuracy": 0.9074410163339383,
+   "top3_accuracy": 0.9861161524500908,
+   "precision_macro": 0.8997267248653379,
+   "recall_macro": 0.9230658703422692,
+   "f1_macro": 0.9069405553655795,
+   "precision_weighted": 0.9165061434927223,
+   "recall_weighted": 0.9074410163339383,
+   "f1_weighted": 0.908855395439291
+  },
+  "Model2_SGF_MobileNetV3_Proposed": {
+   "accuracy": 0.958983666061706,
+   "top3_accuracy": 0.9948275862068966,
+   "precision_macro": 0.9533076710487945,
+   "recall_macro": 0.9570524910563761,
+   "f1_macro": 0.953422099269675,
+   "precision_weighted": 0.9597924799033412,
+   "recall_weighted": 0.958983666061706,
+   "f1_weighted": 0.9589255365572534
+  }
+ },
+ "latency": {
+  "Model1_MobileNetV3Small_Baseline": {
+   "params_M": 0.194244,
+   "size_MB": 0.859035,
+   "cpu_model_ms_mean": 4.296360965013264,
+   "cpu_model_ms_p95": 4.723180349810718,
+   "cpu_end2end_ms": 14.78044447501361,
+   "cpu_throughput_img_s": 1199.6419323766884,
+   "gpu_model_ms_mean": 3.5107232100290275,
+   "gpu_throughput_img_s": 16984.74110766489
+  },
+  "Model2_SGF_MobileNetV3_Proposed": {
+   "params_M": 1.40646,
+   "size_MB": 5.785483,
+   "cpu_model_ms_mean": 7.3320037000030425,
+   "cpu_model_ms_p95": 7.869790450058645,
+   "cpu_end2end_ms": 18.2209319350045,
+   "cpu_throughput_img_s": 659.8860447327899,
+   "gpu_model_ms_mean": 5.848055464989557,
+   "gpu_throughput_img_s": 9048.721163675596
+  }
+ },
+ "preprocessing_ms": 10.484083510000346,
+ "stroke_extraction_ms": 0.40484472500111224,
+ "split": {
+  "train": 51423,
+  "val": 11020,
+  "test": 11020
+ },
+ "config": {
+  "IMG_SIZE": 96,
+  "BATCH_SIZE": 64,
+  "EPOCHS": 30,
+  "LR": 0.001,
+  "SEED": 42
+ }
+}

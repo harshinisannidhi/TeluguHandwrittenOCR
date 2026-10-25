@@ -1,0 +1,77 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables
+.env
+*.env
+
+# Generated reports and caches
+Code/Frontend/report_cache/
+
+# Large dataset files
+Code/dataset/
+Code/dataset.zip
+# Dataset images
+Code/dataset/
+
+# Python cache
+**/__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables
+.env
+*.env
+
+# Generated reports
+Code/Frontend/report_cache/
+
+# Large dataset files
+Code/dataset/
+Code/dataset.zip
+
+# Python cache
+**/__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment files
+.env
+*.env
+
+# Generated reports
+Code/Frontend/report_cache/
+
+Code/dataset.zip
+Code/dataset/
+
+# Large dataset
+Code/dataset.zip
+Code/dataset/
+
+# Large videos
+Video/EXE-Video.mp4
+Video/Overview_Video.mp4
+
+# Python cache
+**/__pycache__/
+*.pyc
+
+# Virtual environments
+.venv/
+venv/
+
+# Environment variables
+.env
+*.env

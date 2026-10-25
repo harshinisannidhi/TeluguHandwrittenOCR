@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About · Telugu OCR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root{--bg:#070b1c;--card:rgba(12,18,42,.78);--card2:rgba(20,28,62,.7);--line:rgba(255,255,255,.13);
+--text:#eef1ff;--muted:#aab3d8;--gold:#f5a524;--gold2:#ffd27a;--teal:#2dd4bf;--rose:#fb7185;--green:#34d399;--radius:18px;
+--tel:'Noto Sans Telugu','Nirmala UI','Gautami','Mandali',sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Poppins','Segoe UI',system-ui,-apple-system,sans-serif;color:var(--text);min-height:100vh;
+background-color:var(--bg);display:flex;flex-direction:column;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:var(--gold2);text-decoration:none}
+a:hover{color:#fff}
+.tel{font-family:var(--tel)}
+/* ---------- navbar ---------- */
+.nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:16px;
+padding:12px 28px;background:rgba(7,11,28,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.15rem;color:#fff;letter-spacing:.2px}
+.brand b{color:var(--gold)}
+.brand-glyph{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;font-family:var(--tel);font-size:1.4rem;
+color:#1b1200;background:linear-gradient(135deg,var(--gold2),var(--gold));box-shadow:0 6px 18px rgba(245,165,36,.35)}
+.links{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.links a{padding:8px 14px;border-radius:10px;color:var(--muted);font-weight:500;font-size:.93rem;transition:.2s}
+.links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.links a.active{color:#1b1200;background:linear-gradient(135deg,var(--gold2),var(--gold))}
+.links a.cta{border:1px solid var(--gold);color:var(--gold2)}
+.burger{display:none;background:none;border:1px solid var(--line);color:#fff;font-size:1.3rem;border-radius:10px;padding:4px 12px;cursor:pointer}
+@media(max-width:820px){.burger{display:block}.links{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;
+align-items:stretch;padding:12px 20px 18px;background:rgba(7,11,28,.96);border-bottom:1px solid var(--line)}
+.nav.open .links{display:flex}}
+/* ---------- layout ---------- */
+.wrap{width:100%;max-width:1180px;margin:0 auto;padding:34px 22px 64px;flex:1}
+.page-title{font-size:clamp(1.7rem,3.4vw,2.5rem);font-weight:700;line-height:1.2;margin-bottom:6px}
+.page-title span{background:linear-gradient(90deg,var(--gold2),var(--gold),var(--teal));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted);max-width:760px;margin-bottom:26px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}.g6{grid-template-columns:repeat(6,1fr)}
+@media(max-width:1000px){.g4{grid-template-columns:repeat(2,1fr)}.g6{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:700px){.g2,.g3,.g4,.g6{grid-template-columns:1fr}.g6{grid-template-columns:repeat(2,1fr)}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;
+backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+.card h2{font-size:1.15rem;margin-bottom:12px;display:flex;align-items:center;gap:10px}
+.card h2 i{font-style:normal;display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:rgba(245,165,36,.16);font-size:1rem}
+.card p{color:var(--muted);font-size:.95rem}
+.section{margin-top:30px}
+.section>h2{font-size:1.3rem;margin-bottom:14px}
+/* ---------- buttons / badges ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 24px;border-radius:12px;font-weight:600;
+font-size:.97rem;border:1px solid transparent;cursor:pointer;transition:.2s;font-family:inherit}
+.btn-gold{color:#1b1200;background:linear-gradient(135deg,var(--gold2),var(--gold));box-shadow:0 10px 26px rgba(245,165,36,.35)}
+.btn-gold:hover{transform:translateY(-2px);color:#1b1200;box-shadow:0 14px 32px rgba(245,165,36,.5)}
+.btn-ghost{color:#fff;border-color:var(--line);background:rgba(255,255,255,.05)}
+.btn-ghost:hover{background:rgba(255,255,255,.12);color:#fff}
+.badge{display:inline-block;padding:3px 11px;border-radius:999px;font-size:.74rem;font-weight:600;letter-spacing:.3px;
+background:rgba(255,255,255,.1);color:var(--muted);border:1px solid var(--line)}
+.badge.ok{background:rgba(52,211,153,.16);color:var(--green);border-color:rgba(52,211,153,.4)}
+.badge.warn{background:rgba(245,165,36,.16);color:var(--gold2);border-color:rgba(245,165,36,.45)}
+.badge.bad{background:rgba(251,113,133,.16);color:var(--rose);border-color:rgba(251,113,133,.45)}
+.badge.gold{background:linear-gradient(135deg,var(--gold2),var(--gold));color:#1b1200;border:none}
+/* ---------- forms ---------- */
+.field{margin-bottom:16px}
+.field label{display:block;font-size:.84rem;color:var(--muted);margin-bottom:6px;font-weight:500}
+.field input[type=email],.field input[type=password],.field input[type=text]{width:100%;padding:13px 15px;border-radius:12px;
+border:1px solid var(--line);background:rgba(255,255,255,.07);color:#fff;font-size:1rem;font-family:inherit;outline:none;transition:.2s}
+.field input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,165,36,.22);background:rgba(255,255,255,.1)}
+.alert{padding:13px 16px;border-radius:12px;margin-bottom:18px;font-size:.93rem;border:1px solid}
+.alert.err{background:rgba(251,113,133,.13);border-color:rgba(251,113,133,.5);color:#ffd0d7}
+.alert.info{background:rgba(245,165,36,.12);border-color:rgba(245,165,36,.45);color:var(--gold2)}
+/* ---------- tables / bars ---------- */
+.tbl-wrap{overflow-x:auto;border-radius:14px;border:1px solid var(--line)}
+table.tbl{width:100%;border-collapse:collapse;font-size:.9rem;min-width:640px}
+.tbl th{text-align:left;padding:11px 14px;background:rgba(245,165,36,.14);color:var(--gold2);font-weight:600;white-space:nowrap;position:sticky;top:0}
+.tbl td{padding:10px 14px;border-top:1px solid var(--line);white-space:nowrap}
+.tbl tr:hover td{background:rgba(255,255,255,.05)}
+.tbl tr.me td{background:rgba(245,165,36,.1)}
+.bar{height:10px;border-radius:99px;background:rgba(255,255,255,.1);overflow:hidden}
+.bar>span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+.bar.teal>span{background:linear-gradient(90deg,#14b8a6,var(--teal))}
+.bar.rose>span{background:linear-gradient(90deg,#f43f5e,var(--rose))}
+/* ---------- flow ---------- */
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch}
+.flow .st{flex:1 1 150px;background:var(--card2);border:1px solid var(--line);border-radius:14px;padding:14px;position:relative}
+.flow .st b{display:block;font-size:.92rem;margin-bottom:2px}
+.flow .st small{color:var(--muted);font-size:.8rem;line-height:1.35;display:block}
+.flow .st .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--gold);color:#1b1200;font-weight:700;font-size:.78rem;margin-bottom:8px}
+/* ---------- footer ---------- */
+.foot{text-align:center;padding:22px;color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);background:rgba(7,11,28,.7);backdrop-filter:blur(8px)}
+
+body{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%271000%27%20height%3D%271000%27%20viewBox%3D%270%200%201000%201000%27%20font-family%3D%22Nirmala%20UI%2CGautami%2CNoto%20Sans%20Telugu%2CMandali%2CPothana2000%2Csans-serif%22%3E%3Ctext%20x%3D%27500%27%20y%3D%27800%27%20font-size%3D%27900%27%20text-anchor%3D%27middle%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.16%27%3E%26%23x0C06%3B%3C%2Ftext%3E%3Ccircle%20cx%3D%27500%27%20cy%3D%27500%27%20r%3D%27470%27%20fill%3D%27none%27%20stroke%3D%27%23f5a524%27%20stroke-opacity%3D%270.18%27%20stroke-width%3D%273%27%20stroke-dasharray%3D%276%2014%27%2F%3E%3C%2Fsvg%3E"),url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27520%27%20height%3D%27520%27%20viewBox%3D%270%200%20520%20520%27%20font-family%3D%22Nirmala%20UI%2CGautami%2CNoto%20Sans%20Telugu%2CMandali%2CPothana2000%2Csans-serif%22%3E%3Ctext%20x%3D%27144%27%20y%3D%27489%27%20font-size%3D%27100%27%20fill%3D%27%232dd4bf%27%20fill-opacity%3D%270.13%27%20transform%3D%27rotate%2817%20144%20489%29%27%3E%26%23x0C05%3B%3C%2Ftext%3E%3Ctext%20x%3D%27440%27%20y%3D%27178%27%20font-size%3D%27100%27%20fill%3D%27%23fb7185%27%20fill-opacity%3D%270.21%27%20transform%3D%27rotate%28-2%20440%20178%29%27%3E%26%23x0C06%3B%3C%2Ftext%3E%3Ctext%20x%3D%27257%27%20y%3D%27434%27%20font-size%3D%27100%27%20fill%3D%27%23ffffff%27%20fill-opacity%3D%270.21%27%20transform%3D%27rotate%2815%20257%20434%29%27%3E%26%23x0C07%3B%3C%2Ftext%3E%3Ctext%20x%3D%27358%27%20y%3D%27244%27%20font-size%3D%2784%27%20fill%3D%27%23fb7185%27%20fill-opacity%3D%270.21%27%20transform%3D%27rotate%28-1%20358%20244%29%27%3E%26%23x0C08%3B%3C%2Ftext%3E%3Ctext%20x%3D%2723%27%20y%3D%27496%27%20font-size%3D%2744%27%20fill%3D%27%23ffd27a%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%28-17%2023%20496%29%27%3E%26%23x0C09%3B%3C%2Ftext%3E%3Ctext%20x%3D%2736%27%20y%3D%27304%27%20font-size%3D%2756%27%20fill%3D%27%23ffd27a%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%284%2036%20304%29%27%3E%26%23x0C0A%3B%3C%2Ftext%3E%3Ctext%20x%3D%27208%27%20y%3D%27289%27%20font-size%3D%2756%27%20fill%3D%27%23fb7185%27%20fill-opacity%3D%270.13%27%20transform%3D%27rotate%28-17%20208%20289%29%27%3E%26%23x0C0E%3B%3C%2Ftext%3E%3Ctext%20x%3D%27260%27%20y%3D%2766%27%20font-size%3D%2744%27%20fill%3D%27%23ffd27a%27%20fill-opacity%3D%270.13%27%20transform%3D%27rotate%28-12%20260%2066%29%27%3E%26%23x0C0F%3B%3C%2Ftext%3E%3Ctext%20x%3D%27109%27%20y%3D%27341%27%20font-size%3D%2784%27%20fill%3D%27%23fb7185%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%28-17%20109%20341%29%27%3E%26%23x0C10%3B%3C%2Ftext%3E%3Ctext%20x%3D%27122%27%20y%3D%27249%27%20font-size%3D%2744%27%20fill%3D%27%23ffd27a%27%20fill-opacity%3D%270.13%27%20transform%3D%27rotate%2813%20122%20249%29%27%3E%26%23x0C12%3B%3C%2Ftext%3E%3Ctext%20x%3D%27321%27%20y%3D%27243%27%20font-size%3D%2784%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.21%27%20transform%3D%27rotate%2813%20321%20243%29%27%3E%26%23x0C13%3B%3C%2Ftext%3E%3Ctext%20x%3D%27410%27%20y%3D%27285%27%20font-size%3D%2744%27%20fill%3D%27%23ffd27a%27%20fill-opacity%3D%270.13%27%20transform%3D%27rotate%289%20410%20285%29%27%3E%26%23x0C14%3B%3C%2Ftext%3E%3Ctext%20x%3D%27262%27%20y%3D%27322%27%20font-size%3D%27100%27%20fill%3D%27%23ffd27a%27%20fill-opacity%3D%270.17%27%20transform%3D%27rotate%28-12%20262%20322%29%27%3E%26%23x0C66%3B%3C%2Ftext%3E%3Ccircle%20cx%3D%27483%27%20cy%3D%27282%27%20r%3D%273%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%27439%27%20cy%3D%27361%27%20r%3D%272%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%27177%27%20cy%3D%27225%27%20r%3D%274%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%2754%27%20cy%3D%27460%27%20r%3D%274%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%27451%27%20cy%3D%27307%27%20r%3D%273%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%27297%27%20cy%3D%27468%27%20r%3D%273%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%27125%27%20cy%3D%27473%27%20r%3D%274%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3Ccircle%20cx%3D%27250%27%20cy%3D%27310%27%20r%3D%273%27%20fill%3D%27%23f5a524%27%20fill-opacity%3D%270.35%27%2F%3E%3C%2Fsvg%3E"),radial-gradient(900px 520px at 8% 0%, rgba(251,113,133,.14), transparent 60%),radial-gradient(800px 520px at 100% 100%, rgba(45,212,191,.16), transparent 60%),linear-gradient(160deg,#070b1c 0%,#0d1433 55%,#120f2b 100%);background-repeat:no-repeat,repeat,no-repeat,no-repeat,no-repeat;background-position:right -140px bottom -200px,0 0,0 0,0 0,0 0;background-size:min(760px,95vw) auto,520px 520px,auto,auto,cover;background-attachment:fixed;}
+
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:800px){.vs{grid-template-columns:1fr}}
+.vs .card.pro{border-color:rgba(245,165,36,.6);box-shadow:0 20px 50px rgba(245,165,36,.12)}
+.formula{font-family:Consolas,Menlo,monospace;background:rgba(0,0,0,.35);border:1px solid var(--line);padding:10px 14px;border-radius:10px;
+color:var(--gold2);font-size:.88rem;margin-top:10px;overflow-x:auto}
+ul.chk{list-style:none;margin-top:6px}
+ul.chk li{padding:5px 0 5px 26px;position:relative;color:var(--muted);font-size:.94rem}
+ul.chk li::before{content:'\2713';position:absolute;left:0;color:var(--green);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+
+</style>
+</head>
+<body>
+<header class="nav" id="topnav">
+  <a class="brand" href="{{ url_for('index') }}"><span class="brand-glyph">అ</span><span>Telugu<b>OCR</b></span></a>
+  <button class="burger" aria-label="Menu" onclick="document.getElementById('topnav').classList.toggle('open')">&#9776;</button>
+  <nav class="links">
+    <a href="{{ url_for('index') }}" class="active">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+    <a href="{{ url_for('login') }}">Login</a>
+    <a href="{{ url_for('register') }}" class="cta">Register</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <h1 class="page-title">About <span>Telugu Handwritten OCR</span></h1>
+  <p class="sub">A deep-learning OCR system for handwritten Telugu characters. It compares a compact MobileNetV3-Small baseline with a
+  proposed stroke-gated fusion network, then turns predictions into Telugu Unicode text and corrects words with a dictionary.</p>
+
+  <section class="card">
+    <h2><i>&#9881;</i>End-to-end pipeline</h2>
+    <div class="flow" style="margin-top:6px">
+      <div class="st"><span class="n">1</span><b>Dataset</b><small>Telugu handwritten characters, 4 groups</small></div>
+      <div class="st"><span class="n">2</span><b>Preprocessing</b><small>Polarity fix, crop to the ink, square canvas, resize, non-local-means denoising, CLAHE</small></div>
+      <div class="st"><span class="n">3</span><b>Two models</b><small>Baseline vs. SGF-MobileNetV3, then best one selected</small></div>
+      <div class="st"><span class="n">4</span><b>Unicode</b><small>Class index &rarr; Telugu Unicode string</small></div>
+      <div class="st"><span class="n">5</span><b>Correction</b><small>Akshara-level dictionary edit distance</small></div>
+      <div class="st"><span class="n">6</span><b>Final text</b><small>Output with per-character confidence</small></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>The two models</h2>
+    <div class="vs">
+      <div class="card"><h2><i>1</i>Baseline &middot; MobileNetV3-Small</h2>
+        <p>A reduced-capacity MobileNetV3-Small that keeps only the early feature stages (about 0.20 M parameters) followed by pooling and a classifier. It keeps the same model family while leaving room to measure what stroke features add.</p></div>
+      <div class="card pro"><h2><i>2</i>Proposed &middot; SGF-MobileNetV3 <span class="badge gold">Selected</span></h2>
+        <p>Full MobileNetV3-Small for appearance (576-d) plus a lightweight stroke CNN (128-d) fed with skeleton, stroke-width and edge maps. A learned gate mixes both streams:</p>
+        <div class="formula">g = &sigma;(W&middot;[f_app &Vert; f_stroke])<br>f = g &#8857; f_app + (1 &minus; g) &#8857; f_stroke</div></div>
+    </div>
+  </section>
+
+  <section class="section grid g2">
+    <div class="card"><h2><i>&#128193;</i>Dataset groups</h2>
+      <p>292,752 handwritten images in 121 dataset folders. Folders that are the same Telugu character are merged, giving 76 classes, and the data is balanced to 73,463 images.</p>
+      <ul class="chk">
+        <li><b class="tel">Achulu</b> &mdash; vowels (అ ఆ ఇ ఈ ...)</li>
+        <li><b class="tel">Hallulu</b> &mdash; consonants (క ఖ గ ఘ ...)</li>
+        <li><b class="tel">Guninthamulu</b> &mdash; consonant + vowel sign (కా కి కీ ...)</li>
+        <li><b class="tel">Othulu</b> &mdash; conjunct subscripts (&#3149;క &#3149;ఖ ...)</li>
+      </ul></div>
+    <div class="card"><h2><i>&#128295;</i>Technology</h2>
+      <div class="chips"><span class="badge">PyTorch</span><span class="badge">TorchVision</span><span class="badge">OpenCV</span><span class="badge">scikit-image</span><span class="badge">Flask</span><span class="badge">MySQL</span><span class="badge">ReportLab</span><span class="badge">Pillow</span></div>
+      <p style="margin-top:14px">Training used AdamW with a OneCycle learning-rate schedule, label smoothing, mixed precision, early stopping, class-balanced sampling and upload-style augmentation (shift, shear, scale, blur, low resolution). The exact preprocessing code is shared between training and this web app.</p></div>
+  </section>
+
+  <section class="section card">
+    <h2><i>&#9888;</i>Good to know</h2>
+    <ul class="chk">
+      <li>The app recognises one cropped character per image. A word is read by uploading its character images in order.</li>
+      <li>Confidence scores below the threshold are flagged, with the top alternatives shown.</li>
+      <li>Dictionary correction helps most with single-character errors; unknown words are left as predicted.</li>
+      <li>Predictions are machine output &mdash; verify important text manually.</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="foot">Telugu Handwritten Character OCR &middot; SGF-MobileNetV3 &middot; Stroke-Gated Feature Fusion &middot; &copy; 2026</footer>
+
+</body>
+</html>
